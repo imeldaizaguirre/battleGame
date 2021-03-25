@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Battle Game</title>
+        <link rel="FaviconIcon" href="favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+
+    </head>
+
+    <body onload="randomBoard()">
+        <video autoplay muted loop id="backgroundVideo">
+            <source src="images/backgroundVideo.mp4" type="video/mp4">
+          </video>
+         <div id="themeSong">
+            <audio autoplay hidden loop>
+             <source src="sounds/starWarsThemeSong.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <div class="header__heading">
+            <h1 class="header__heading__title">Battle Game</h1>
+        </div>
+
+        <div class="board__players">
+            <div class="board__player">
+                <div class="board__player__score__card">
+                    <h2 class="board__player__title">Player One</h2>
+                    <h3 class="board__player__title">Ray</h3>
+                    <p class="board__player__LifeScore">Life Score: <span class="board__player__highestPoint">100</span></p>
+                    <div class="board__weapon__current__image">
+                        <p>Weapon: <span class="board__player__weapon">
+                           <img  class="board__default__weapon" src="images/defaultWeapon.png">
+                        </span></p>
+                    </div>
+                    <p class="board__player__score">ATTK: <span class="board__player__attack">10</span></p>
+                    <div class="attack__board__buttons">
+                        <button class="attack__board__player1__attack"><h1>ATTACK</h1></button>
+                    </div>
+                    <div class="attack__board__buttons">
+                        <button class="attack__board__player1__defend"><h1>DEFEND</h1></button>
+                
+                    </div>
+                </div>
+                </div>      
+        <div class="board__opponent">
+            <div class="board__opponent__score__card">
+                <h2 class="board__opponent__title">Player Two</h2>
+                <h3 class="board__opponent__title">Kylo Ren</h3>
+                <p class="board__opponent__LifeScore">Life Points: <span class="board__opponent__highestPoint">100</span></p>
+                <div class="board__weapon__current__image">
+                    <p>Weapon: <span class="board__opponent__weapon">
+                        <img  class="board__default__weapon" src="images/defaultWeapon.png">
+                    </span></p>
+                </div>
+                <p class="board__opponent__score">ATTK: <span class="board__opponent__attack">10</span></p>
+                <div class="attack__board__player2">
+                    <div class="attack__board__buttons">
+                        <button class="attack__board__player2__attack"><h1>ATTACK</h1></button>
+                    </div>
+                    <div class="attack__board__buttons">
+                        <button class="attack__board__player2__defend"><h1>DEFEND</h1></button> 
+                        </div>            
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <button class="start__game__button" onclick="startGame()"><p>START GAME</p></button>
+
+    <div class="board__players__images">
+        <div class="board__player__image">
+            <img  width="550" height="500" src="images/player.png"><img> 
+        </div> 
+        <div class="board__opponent__image">
+            <img width="250" height="500" src="images/opponent.png"><img> 
+        </div>   
+    </div>
+
+
+
+        <main class="board">
+            <div id="1" class="board__square"></div>
+            <div id="2" class="board__square"></div>
+            <div id="3" class="board__square"></div>
+            <div id="4" class="board__square"></div>
+            <div id="5" class="board__square"></div>
+            <div id="6" class="board__square"></div>
+            <div id="7" class="board__square"></div>
+            <div id="8" class="board__square"></div>
+            <div id="9" class="board__square"></div>
+            <div id="10" class="board__square"></div>
+            <div id="11" class="board__square"></div>
+            <div id="12" class="board__square"></div>
+            <div id="13" class="board__square"></div>
+            <div id="14" class="board__square"></div>
+            <div id="15" class="board__square"></div>
+            <div id="16" class="board__square"></div>
+            <div id="17" class="board__square"></div>
+            <div id="18" class="board__square"></div>
+            <div id="19" class="board__square"></div>
+            <div id="20" class="board__square"></div>
+            <div id="21" class="board__square"></div>
+            <div id="22" class="board__square"></div>
+            <div id="23" class="board__square"></div>
+            <div id="24" class="board__square"></div>
+            <div id="25" class="board__square"></div>
+            <div id="26" class="board__square"></div>
+            <div id="27" class="board__square"></div>
+            <div id="28" class="board__square"></div>
+            <div id="29" class="board__square"></div>
+            <div id="30" class="board__square"></div>
+            <div id="31" class="board__square"></div>
+            <div id="32" class="board__square"></div>
+            <div id="33" class="board__square"></div>
+            <div id="34" class="board__square"></div>
+            <div id="35" class="board__square"></div>
+            <div id="36" class="board__square"></div>
+            <div id="37" class="board__square"></div>
+            <div id="38" class="board__square"></div>
+            <div id="39" class="board__square"></div>
+            <div id="40" class="board__square"></div>
+            <div id="41" class="board__square"></div>
+            <div id="42" class="board__square"></div>
+            <div id="43" class="board__square"></div>
+            <div id="44" class="board__square"></div>
+            <div id="45" class="board__square"></div>
+            <div id="46" class="board__square"></div>
+            <div id="47" class="board__square"></div>
+            <div id="48" class="board__square"></div>
+            <div id="49" class="board__square"></div>
+            <div id="50" class="board__square"></div>
+            <div id="51" class="board__square"></div>
+            <div id="52" class="board__square"></div>
+            <div id="53" class="board__square"></div>
+            <div id="54" class="board__square"></div>
+            <div id="55" class="board__square"></div>
+            <div id="56" class="board__square"></div>
+            <div id="57" class="board__square"></div>
+            <div id="58" class="board__square"></div>
+            <div id="59" class="board__square"></div>
+            <div id="60" class="board__square"></div>
+            <div id="61" class="board__square"></div>
+            <div id="62" class="board__square"></div>
+            <div id="63" class="board__square"></div>
+            <div id="64" class="board__square"></div>
+            <div id="65" class="board__square"></div>
+            <div id="66" class="board__square"></div>
+            <div id="67" class="board__square"></div>
+            <div id="68" class="board__square"></div>
+            <div id="69" class="board__square"></div>
+            <div id="70" class="board__square"></div>
+            <div id="71" class="board__square"></div>
+            <div id="72" class="board__square"></div>
+            <div id="73" class="board__square"></div>
+            <div id="74" class="board__square"></div>
+            <div id="75" class="board__square"></div>
+            <div id="76" class="board__square"></div>
+            <div id="77" class="board__square"></div>
+            <div id="78" class="board__square"></div>
+            <div id="79" class="board__square"></div>
+            <div id="80" class="board__square"></div>
+            <div id="81" class="board__square"></div>
+            <div id="82" class="board__square"></div>
+            <div id="83" class="board__square"></div>
+            <div id="84" class="board__square"></div>
+            <div id="85" class="board__square"></div>
+            <div id="86" class="board__square"></div>
+            <div id="87" class="board__square"></div>
+            <div id="88" class="board__square"></div>
+            <div id="89" class="board__square"></div>
+            <div id="90" class="board__square"></div>
+            <div id="91" class="board__square"></div>
+            <div id="92" class="board__square"></div>
+            <div id="93" class="board__square"></div>
+            <div id="94" class="board__square"></div>
+            <div id="95" class="board__square"></div>
+            <div id="96" class="board__square"></div>
+            <div id="97" class="board__square"></div>
+            <div id="98" class="board__square"></div>
+            <div id="99" class="board__square"></div>
+            <div id="100" class="board__square"></div>
+        </main>
+        <button class="playAgainButton">PLAY AGAIN</button>
+        <script src="script.js"></script>
+    </body>
+</html>

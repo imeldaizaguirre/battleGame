@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Battle Game</title>
+        <link rel="stylesheet" href="attack.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+
+    </head>
+
+    <body>
+        <video autoplay muted loop id="backgroundVideo">
+            <source src="../images/backgroundVideo.mp4" type="video/mp4">
+          </video>
+
+        <div class="header__heading">
+            <h1 class="header__heading__title">Battle Game</h1>
+        </div>
+
+        <div class="board__players">
+            <div class="board__player">
+                <div class="board__player__score__card">
+                    <h2 class="board__player__title">Player One</h2>
+                    <h3 class="board__player__title">Ray</h3>
+                    <p class="board__player__LifeScore">HP: <span class="board__player__highestPoint">100</span></p>
+                    <div class="board__weapon__current__image">
+                        <p>Weapon: <span class="board__player__weapon">
+                           <img  class="board__default__weapon" src="../images/defaultWeapon.png">
+                        </span></p>
+                    </div>
+                    <p class="board__player__score">ATTK: <span class="board__player__attack">10</span></p>
+                </div>      
+            </div>
+        <div class="board__opponent">
+            <div class="board__opponent__score__card">
+                <h2 class="board__opponent__title">Player Two</h2>
+                <h3 class="board__opponent__title">Kylo Ren</h3>
+                <p class="board__opponent__LifeScore">HP: <span class="board__opponent__highestPoint">100</span></p>
+                <div class="board__weapon__current__image">
+                    <p>Weapon: <span class="board__opponent__weapon">
+                        <img  class="board__default__weapon" src="../images/defaultWeapon.png">
+                    </span></p>
+                </div>
+                <p class="board__opponent__score">ATTK: <span class="board__opponent__attack">10</span></p>
+            </div>  
+        </div>
+    </div>
+    <button class="start__game__button" onclick="startGame()"><p>START GAME</p></button>
+
+    <div class="board__players__images">
+        <div class="board__player__image">
+            <img  width="700" height="600" src="../images/player.png"><img> 
+        </div> 
+        <div class="board__opponent__image">
+            <img width="400" height="850" src="../images/opponent.png"><img> 
+        </div>   
+    </div>
+
+<div class="board__attack__container">
+<div class="attack__board__player1">
+    <div class="attack__board__buttons">
+        <button class="attack__board__player1__attack"><h1>ATTACK</h1></button>
+    </div>
+    <div class="attack__board__buttons">
+        <button class="attack__board__player1__defend"><h1>DEFEND</h1></button>
+
+    </div>
+</div>
+
+<div class="attack__board__player2">
+    <div class="attack__board__buttons">
+        <button class="attack__board__player2__attack"><h1>ATTACK</h1></button>
+    </div>
+    <div class="attack__board__buttons">
+        <button class="attack__board__player2__defend"><h1>DEFEND</h1></button>
+
+    </div>
+</div>
+</div>
+
+
+    </body>
