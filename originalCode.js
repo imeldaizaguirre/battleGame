@@ -11,23 +11,13 @@ let opponent1lifePointsDisplay = document.querySelector('.board__opponent__highe
 let playAgainButton = document.querySelector('.playAgainButton'); 
 let playerScoreCard = document.querySelector('.board__player__score__card')
 let opponentScoreCard = document.querySelector('.board__opponent__score__card')
-const fightSelectors = [
-    '.attack__board__player1__attack',
-    '.attack__board__player2__attack',
-         
-]
-
-const defendControllers = [
-    '.attack__board__player1__defend',
-    '.attack__board__player2__defend', 
-] 
-
 
 
 const emptySquare = []; 
 const unavailableSquare = [];
 let currentPlayer = null;
-
+let hasClicked = false;
+let firstFight = false;
 
 let playerStyles = `
         width:40px;
@@ -37,7 +27,14 @@ let playerStyles = `
         margin:0 auto;
     `
 
-    let weaponStyles =  `
+const offenseWeapons = [
+    {name: 'yoda', power: 25, img: "weapon1.png", position: null},
+    {name:'light saber', power: 25, img: "weapon2.png", position: null},
+    {name: 'spaceship', power: 25 , img:"chewbacca.png", position: null},
+    {name: 'robot', power:25 , img:"robot2.png", position: null}
+];
+
+let weaponStyles =  `
     width:40px;
     height:40px;
     object-fit:cover;
@@ -51,14 +48,7 @@ let nextMoveStyles = `
     display:block;
     margin:0 auto;
     `
-const offenseWeapons = [
-    {name: 'yoda', power: 20, img: "weapon1.png", position: null},
-    {name:'light saber', power: 25, img: "weapon2.png", position: null},
-    {name: 'spaceship', power: 10 , img:"chewbacca.png", position: null},
-    {name: 'robot', power:15 , img:"robot2.png", position: null}
-];
-
-//player object constructor
+//player object schema
 function Player(name, position, image, possibleMoves, defaultWeapon, startingPositionId = null, lifeScore) {
     this.name = name,
     this.position = position,
@@ -69,31 +59,27 @@ function Player(name, position, image, possibleMoves, defaultWeapon, startingPos
     this.lifeScore = lifeScore
     };
 
-//player declaration
 let player1 = new Player('Ray', null,'player.png', [], "images/defaultWeapon.png");
 let player2 = new Player('Kylo', null,'opponent.png', [], "images/defaultWeapon.png");
 currentPlayer = player1;
 
-
-// generate the game map.
+//randomly generate the game map.
 const randomBoard = () =>{
-    squaresArray.forEach((square) => {
+    squaresArray.forEach((square, index) => {
             square.style.visibility = "visible";
     })
     displayRandomWeapons();
-    obstacles();
-    setAvailability();
 }
-// display weapons
-let randomNums = [];
+//randomly display weapons
+let randomNum = [];
 function  displayRandomWeapons() {
         offenseWeapons.forEach( (weapon) => {
             let randomNumber = Math.floor(Math.random() * squaresArray.length);
-            while(randomNums.includes(randomNumber)){
-                randomNums.splice(randomNums.indexOf(randomNumber), 1);
-                randomNumber = Math.floor(Math.random() * squaresArray.length);
+            for(let i = 0; i <= randomNum.length; i++){
+                if(i === randomNumber);
+                randomNum.splice(i, 1);
             }
-           randomNums.push(randomNumber);
+            randomNum.push(randomNumber);
             let squareToPlaceWeapon = squaresArray[randomNumber];
             let addWeaponToSquare = document.createElement("img");
             addWeaponToSquare.style = weaponStyles;
@@ -101,6 +87,7 @@ function  displayRandomWeapons() {
             squareToPlaceWeapon.appendChild(addWeaponToSquare); 
             weapon.position = squareToPlaceWeapon;        
         })
+        obstacles();
 }
 
 //set unavailable obstacle squares
@@ -110,6 +97,7 @@ const obstacles = () => {
         let randomPosition = Math.floor(Math.random() * squaresArray.length);
         let square = squaresArray[randomPosition];
         if(square.children.length === 0){
+            // square.style.backgroundColor = "rgb(247, 202, 1)";
             square.style.background = "url(images/starWarsObstacles.png)";
             square.style.backgroundPosition = "center";
             square.style.backgroundSize = "35px 35px";
@@ -117,6 +105,7 @@ const obstacles = () => {
             dimmed++;           
         } 
     }
+    setAvailability();
 }
 
 const setAvailability = () => {
@@ -136,7 +125,8 @@ const setAvailability = () => {
     }
         if(square.children.length === 0 && square.style.backgroundImage.length === 0) {
             emptySquare.push(squaresArray[square.id - 1]);
-        }     
+        }
+        
         if(square.style.backgroundImage.length !== 0){
             unavailableSquare.push(squaresArray[square.id - 1]); 
         } 
@@ -154,25 +144,27 @@ const startGame = () => {
     player2.lifeScore = 100;
 }
 
-//highlight
+// highlight moves
 const highlight = () => {
-    currentPlayer.possibleMoves.map(possibleMove => {
-        let position = squaresArray.find(square => parseInt(square.id) === possibleMove);
-          $(position).mouseenter(function(){
-            $(position).css("pointer-events", "inherit");
-            $(position).css("background-color", "rgba(247, 202, 1, 0.5)");
-          });
-          $(position).mouseleave(function(){
-            $(position).css("background-color", "rgba(204, 255, 204, 0.2)");
-          });
-    })     
+    currentPlayer.possibleMoves.map(possibleMove => { 
+    let position = squaresArray[possibleMove -1];
+        position.onmouseover = function () {
+            position.style.pointerEvents ="initial";
+            position.style.backgroundColor = "rgba(247, 202, 1, 0.5)"; //yoda green color
+        position.onmouseout = function () {
+            position.style.pointerEvents ="initial";
+            position.style.backgroundColor = "rgba(204, 255, 204, 0.2)";
+            }    
+        }
+        
+    })
 }
 
 //clearhighlight and possibleMoves
 const clearHighlight = () => {
     currentPlayer.possibleMoves.map(possibleMove => {
         let position = squaresArray[possibleMove -1];
-        $(position).css("background-color", "rgba(204, 255, 204, 0.2)");
+        position.style.backgroundColor = "rgba(204, 255, 204, 0.2)";
         currentPlayer.possibleMoves = []; 
     })
 }
@@ -234,11 +226,12 @@ const findAvailableRandomPosition = () => {
     return parseInt(emptySquaresWithoutWeapons[randomIndex].id);
 }
 
-
 //set Players 
 const setPlayer= (player) =>{
+    debugger;
     let position = findNewPlayerPosition(player);
     let box = emptySquare.find( div => parseInt(div.id) === position);
+    // emptySquare[position];
     player.position = box;
     let displayImage  = document.createElement("img");
     displayImage.setAttribute('src', `images/${player.image}`);
@@ -248,6 +241,8 @@ const setPlayer= (player) =>{
     emptySquare.splice(position, 1);
     setPlayerPossibleMoves(player);
 }
+
+
 
 const setPlayerPossibleMoves = (player) => {
     const position = parseInt(player.position.id);
@@ -295,7 +290,7 @@ const setPlayerPossibleMoves = (player) => {
         player.possibleMoves.push(position + 10);
         if(emptySquare.find(square => parseInt(square.id) === (position + 20)) && position + 20 <= 100) {
             player.possibleMoves.push(position + 20)
-            if(emptySquare.find(square => parseInt(square.id) === (position + 30)) && position + 30 <= 100) {player.possibleMoves.push(position + 30)}
+            if(emptySquare.find(square => parseInt(square.id) === (position + 30)) && position + 30 <= 100) player.possibleMoves.push(position + 30)
         }
     } 
     //move up
@@ -375,8 +370,6 @@ const readyToAttack = (player) => {
     let currentPlayerPosition = parseInt(player.position.id) -1;
     player === player1 ? opponenetPosition = parseInt(player2.position.id)-1 : opponenetPosition = parseInt(player1.position.id)-1;
     if(currentPlayerPosition + 1 === opponenetPosition) {
-        playerScoreCard.classList.add('added-class');
-        opponentScoreCard.classList.add('added-class');
         playerImages.style.visibility = "hidden";
         board.remove();
         startGameButton.remove();
@@ -388,8 +381,6 @@ const readyToAttack = (player) => {
         currentPlayer === player1 ? disable(player1) : disable(player2)
     }
     if(currentPlayerPosition - 1 === opponenetPosition) { 
-        playerScoreCard.classList.add('added-class');
-        opponentScoreCard.classList.add('added-class');
         playerImages.style.visibility = "hidden";     
         board.remove();
         startGameButton.remove();
@@ -401,8 +392,6 @@ const readyToAttack = (player) => {
         currentPlayer === player1 ? disable(player1) : disable(player2)
     };
     if(currentPlayerPosition + 10 === opponenetPosition) { 
-        playerScoreCard.classList.add('added-class');
-        opponentScoreCard.classList.add('added-class');
         playerImages.style.visibility = "hidden";     
         board.remove();
         startGameButton.remove();
@@ -414,8 +403,6 @@ const readyToAttack = (player) => {
         currentPlayer === player1 ? disable(player1) : disable(player2)
     };
     if(currentPlayerPosition - 10 === opponenetPosition) { 
-        playerScoreCard.classList.add('added-class');
-        opponentScoreCard.classList.add('added-class');
         playerImages.style.visibility = "hidden";      
         board.remove();
         startGameButton.remove();
@@ -597,7 +584,7 @@ const defend  = (player) => {
    
 }
 
-
+//if defend enable the next player attack button
 const disable = (player) => {
     if(player === player1) {
         document.querySelector('.attack__board__player2__attack').style.pointerEvents = "none"
@@ -616,6 +603,16 @@ const enable = (player) => {
     }
 }
 
+const fightSelectors = [
+    '.attack__board__player1__attack',
+    '.attack__board__player2__attack',
+         
+]
+
+const defendControllers = [
+    '.attack__board__player1__defend',
+    '.attack__board__player2__defend', 
+] 
 
 const disableforDefend = (player) => {
     if(player === player1) {
@@ -653,4 +650,3 @@ playAgainButton.addEventListener('click', function () {
 })
 
 
-//FIX BUG ON LINE 234 SOMETHING ABOUT ID IS UNDEFINED OR SOMETHING LIKE THAT
